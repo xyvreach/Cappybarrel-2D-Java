@@ -28,7 +28,7 @@ public class Enemy {
         float shortestDistance = Float.MAX_VALUE;
     
         for (Player player : players) {
-            if (player != null) { // Ensure the player exists (e.g., in single-player mode)
+            if (player != null) { // Ensure the player exists
                 float deltaX = player.getX() - x;
                 float deltaY = player.getY() - y;
                 float distance = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -43,12 +43,16 @@ public class Enemy {
             float deltaX = closestPlayer.getX() - x;
             float deltaY = closestPlayer.getY() - y;
             float distance = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    
             if (distance > 0) {
-                x += (deltaX / distance) * speed;
-                y += (deltaY / distance) * speed;
+                // Ensure the enemy moves at its defined speed, not faster
+                float step = Math.min(speed, distance); // Move at speed or remaining distance
+                x += (deltaX / distance) * step;
+                y += (deltaY / distance) * step;
             }
         }
     }
+    
     
 
     // Getters for position

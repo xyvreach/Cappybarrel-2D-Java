@@ -98,22 +98,21 @@ public class CappybarrelGame {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                boolean player1Moved = updatePlayerMovement(player1, wPressed, aPressed, sPressed, dPressed);
-                boolean player2Moved = false;
-
+                // Update player movements
+                updatePlayerMovement(player1, wPressed, aPressed, sPressed, dPressed);
                 if (!isSinglePlayer) {
-                    player2Moved = updatePlayerMovement(player2, upPressed, leftPressed, downPressed, rightPressed);
+                    updatePlayerMovement(player2, upPressed, leftPressed, downPressed, rightPressed);
                 }
-
+    
+                // Enemy moves toward the closest player
                 enemy.moveTowardsClosestPlayer(isSinglePlayer ? player1 : player1, player2);
-
-
-                if (player1Moved || player2Moved) {
-                    gamePanel.repaint();
-                }
+    
+                // Repaint the game panel to reflect updates
+                gamePanel.repaint();
             }
         }, 0, 16); // ~60 FPS
     }
+    
 
     private static boolean updatePlayerMovement(Player player, boolean up, boolean left, boolean down, boolean right) {
         boolean moved = false;

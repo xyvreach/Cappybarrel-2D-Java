@@ -63,7 +63,7 @@ public class CappybarrelGame {
             player2 = new Player(200, 100, 2.75f, joeyImage);
         }
 
-        enemy = new Enemy(400, 300, 1.5f, new ImageIcon(ENEMY_IMAGE_PATH));
+        enemy = new Enemy(400, 300, 1.5f, new ImageIcon(ENEMY_IMAGE_PATH), 50, 50); // Adjust width and height as needed
 
         JPanel gamePanel = createGamePanel(isSinglePlayer);
 
@@ -105,7 +105,8 @@ public class CappybarrelGame {
                     player2Moved = updatePlayerMovement(player2, upPressed, leftPressed, downPressed, rightPressed);
                 }
 
-                enemy.moveTowardsPlayer(player1.getX(), player1.getY());
+                enemy.moveTowardsClosestPlayer(isSinglePlayer ? player1 : player1, player2);
+
 
                 if (player1Moved || player2Moved) {
                     gamePanel.repaint();

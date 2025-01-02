@@ -4,6 +4,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+
 
 public class CappybarrelGame {
 
@@ -159,18 +163,42 @@ public class CappybarrelGame {
         });
     }
 
-    private static void handleKeyPressed(int key) {
-        switch (key) {
-            case KeyEvent.VK_W -> wPressed = true;
-            case KeyEvent.VK_A -> aPressed = true;
-            case KeyEvent.VK_S -> sPressed = true;
-            case KeyEvent.VK_D -> dPressed = true;
-            case KeyEvent.VK_UP -> upPressed = true;
-            case KeyEvent.VK_LEFT -> leftPressed = true;
-            case KeyEvent.VK_DOWN -> downPressed = true;
-            case KeyEvent.VK_RIGHT -> rightPressed = true;
+    private static void playSound(String soundFilePath) {
+        try {
+            File soundFile = new File(soundFilePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
         }
     }
+    
+
+    private static void handleKeyPressed(int key) {
+    switch (key) {
+        case KeyEvent.VK_W -> wPressed = true;
+        case KeyEvent.VK_A -> aPressed = true;
+        case KeyEvent.VK_S -> sPressed = true;
+        case KeyEvent.VK_D -> dPressed = true;
+        case KeyEvent.VK_UP -> upPressed = true;
+        case KeyEvent.VK_LEFT -> leftPressed = true;
+        case KeyEvent.VK_DOWN -> downPressed = true;
+        case KeyEvent.VK_RIGHT -> rightPressed = true;
+
+        // Bind 'h' for Player 1 to play rifle sound
+        case KeyEvent.VK_H -> playSound("src\\assets\\sounds\\rifle_shot.wav");
+
+        // Bind 'Enter' on number pad for Player 2 to play pistol sound (multiplayer only)
+        case KeyEvent.VK_ENTER -> {
+            if (player2 != null) { // Only play sound if Player 2 exists
+                playSound("src\\assets\\sounds\\pistol_shot.wav");
+            }
+        }
+    }
+}
+
 
     private static void handleKeyReleased(int key) {
         switch (key) {

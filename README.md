@@ -1,6 +1,6 @@
 # Cappybarrel Game
 
-Cappybarrel is a 2D desktop game where players control capybara characters navigating through a game world. The game supports single-player and multiplayer modes and includes an enemy character that moves toward the player.
+Cappybarrel is a 2D desktop game where players pull up and control capybara characters navigating through a game world. The game supports single-player and multiplayer modes and includes an enemy character that moves toward the player.
 
 ## Features
 

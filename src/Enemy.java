@@ -5,6 +5,8 @@ public class Enemy {
     private float x, y; // Position
     private float speed; // Speed
     private ImageIcon sprite;
+    private boolean showHitbox = false; // Toggle for hitbox
+
 
     public Enemy(float startX, float startY, float speed, ImageIcon sprite, int width, int height) {
         this.x = startX;
@@ -20,7 +22,13 @@ public class Enemy {
 
     public void draw(Graphics g, JPanel panel) {
         g.drawImage(sprite.getImage(), (int) x, (int) y, panel); // Cast to int for drawing
+        if (showHitbox) {
+            g.setColor(Color.RED);
+            g.drawRect((int) x, (int) y, sprite.getIconWidth(), sprite.getIconHeight());
+        }
     }
+    // Toggle hitbox visibility
+    public void toggleHitbox() { showHitbox = !showHitbox; }
 
 
     public void moveTowardsClosestPlayer(Player... players) {

@@ -177,6 +177,33 @@ public class CappybarrelGame {
     
 
     private static void handleKeyPressed(int key) {
+        switch (key) {
+            case KeyEvent.VK_W -> wPressed = true;
+            case KeyEvent.VK_A -> aPressed = true;
+            case KeyEvent.VK_S -> sPressed = true;
+            case KeyEvent.VK_D -> dPressed = true;
+            case KeyEvent.VK_UP -> upPressed = true;
+            case KeyEvent.VK_LEFT -> leftPressed = true;
+            case KeyEvent.VK_DOWN -> downPressed = true;
+            case KeyEvent.VK_RIGHT -> rightPressed = true;
+    
+            // Bind 'H' to toggle player hitbox
+            case KeyEvent.VK_R -> player1.toggleHitbox();
+    
+            // Bind 'E' to toggle enemy hitbox
+            case KeyEvent.VK_E -> enemy.toggleHitbox();
+    
+            // Play sound examples
+            case KeyEvent.VK_ENTER -> {
+                if (player2 != null) playSound("src\\assets\\sounds\\pistol_shot.wav");
+            }
+            case KeyEvent.VK_T -> {
+                if (player2 != null) player2.toggleHitbox();
+            }
+        }
+    }
+/*   
+    private static void handleKeyPressed(int key) {
     switch (key) {
         case KeyEvent.VK_W -> wPressed = true;
         case KeyEvent.VK_A -> aPressed = true;
@@ -197,7 +224,7 @@ public class CappybarrelGame {
             }
         }
     }
-}
+}*/
 
 
     private static void handleKeyReleased(int key) {
